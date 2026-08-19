@@ -1,0 +1,61 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+const facts = [
+	{ value: '13.2°', label: 'Measured forward pitch' },
+	{ value: '250 mL', label: 'Removable sample bottle' },
+	{ value: '~30 s', label: 'Observed bottle fill time' },
+	{ value: '0', label: 'Visible leaks after recovery' },
+];
+
+const workflow = [
+	{ number: '01', title: 'CAD + ballast strategy', text: 'Shape a passive forward attitude bias and package the samplers around the BlueROV frame.' },
+	{ number: '02', title: 'Fabrication', text: '3D-print housings and linkages, assemble tubing, bottle retention, and quick-release hardware.' },
+	{ number: '03', title: 'Embedded actuation', text: 'Drive a waterproof servo and dual-tube pinch mechanism through repeatable open and closed states.' },
+	{ number: '04', title: 'River validation', text: 'Deploy, collect bottom material and water, recover samples, and turn observations into design changes.' },
+];
+
+const contributions = [
+	{ title: 'Mechanical architecture', text: 'Designed the passive attitude-biasing sediment retrofit, integrated a Newton subsea gripper, and packaged the water sampler within the constraints of the BlueROV Heavy frame.' },
+	{ title: 'Sampling mechanism', text: 'Built a servo-actuated dual-tube pinch valve, removable 250 mL bottle, mechanical linkage, and quick-release holder for field handling.' },
+	{ title: 'Embedded control', text: 'Implemented repeatable actuation states and integrated the sampling command into the vehicle workflow for deployment and recovery.' },
+	{ title: 'Field evaluation', text: 'Ran Lafayette River trials, measured vehicle attitude, documented sediment retention and bottle filling, checked for leakage, and iterated from the physical evidence.' },
+];
+
+const results = [
+	{ value: '13.2°', label: 'Passive attitude bias', detail: 'The fielded sediment configuration produced a measured forward pitch that helped position the gripper toward the bottom.' },
+	{ value: '~30 s', label: 'Water collection', detail: 'The 250 mL removable bottle filled during the river trial and was recovered without visible leakage.' },
+	{ value: '2 media', label: 'Co-located sampling', detail: 'One field platform supported both water and bottom-sediment collection for environmental monitoring.' },
+];
+
+const gallery = [
+	{ src: '/images/sampling-full-assembly-cad.webp', alt: 'CAD rendering of the complete BlueROV Heavy with the integrated water- and sediment-sampling assembly.', caption: 'Full-system CAD integration showing the sampling hardware packaged around the BlueROV frame.', fit: 'contain' as const },
+	{ src: '/images/sampler-pinch-cad.webp', alt: 'CAD rendering of the servo-actuated dual-tube pinch-valve mechanism.', caption: 'Detailed CAD view of the servo, linkage, guide rods, and dual-tube pinch interface.', fit: 'contain' as const },
+	{ src: '/images/sampling-retrofit.webp', alt: 'CAD rendering and installed view of the BlueROV sediment-sampling retrofit.', caption: 'Sediment-sampling retrofit from CAD configuration to installed hardware.', fit: 'contain' as const },
+	{ src: '/images/sampling-mechanism.webp', alt: 'Close views of the servo-actuated water-sampler pinch mechanism and linkage.', caption: 'Fabricated water-sampler mechanism, pinch linkage, tubing, and removable bottle.', fit: 'contain' as const },
+	{ src: '/images/sampling-kinematics.webp', alt: 'Kinematic sketch of the water-sampler servo, linkages, and tube-pinching motion.', caption: 'Kinematic reasoning used to size the servo-driven pinch linkage.', fit: 'contain' as const },
+	{ src: '/images/sediment-field-validation.webp', alt: 'ROV sediment gripper after field recovery beside retained bottom material.', caption: 'Lafayette River field validation and recovered bottom sediment.' },
+];
+---
+
+<ProjectLayout
+	title="ROV-Based Water & Sediment Sampling"
+	eyebrow="Project 02 / Environmental monitoring"
+	deck="A field-tested sampling system for PFAS studies, designed from CAD and 3D-printed mechanisms through embedded actuation, BlueROV integration, and river validation."
+	heroImage="/images/water-sampler-closeup.webp"
+	heroAlt="Close-up of the BlueROV Heavy water sampler showing its removable bottle, tubing, dual-tube pinch mechanism, and mounting frame."
+	heroCaption="Fielded water-sampler hardware showing the bottle, tubing, pinch linkage, and ROV mounting frame."
+	{facts}
+	problem="Environmental studies need water and sediment samples from the same location, yet placing a sampler on a small ROV creates conflicts between vehicle attitude, thruster wash, payload space, sample integrity, and field handling."
+	approach="I designed the payload around the realities of deployment: a passive attitude bias for bottom contact, a gripper for sediment, and a servo-driven pinch mechanism for water. The design was fabricated, integrated, commanded through the vehicle workflow, and evaluated in the Lafayette River."
+	{workflow}
+	{contributions}
+	{results}
+	{gallery}
+	lessons={[
+		'Sample-path materials, retention, and potential contamination must be considered as early as the mechanical geometry.',
+		'Passive mechanics can reduce control complexity when a repeatable physical interaction—such as forward bottom contact—is the real goal.',
+		'Quick-release features and easy bottle handling are not secondary details; they directly affect field reliability and sample recovery.',
+	]}
+	nextProject={{ href: '/projects/river-flow/', label: 'JaiaBot fleet river-flow estimation' }}
+/>

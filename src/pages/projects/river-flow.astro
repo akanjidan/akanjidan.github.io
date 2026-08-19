@@ -1,0 +1,60 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+const facts = [
+	{ value: '3', label: 'JaiaBots deployed as a fleet' },
+	{ value: '~5 m', label: 'Initial robot spacing' },
+	{ value: '0.02 m/s', label: 'Flow-vector RMSE' },
+	{ value: '2.97 m', label: 'Final trajectory error' },
+];
+
+const workflow = [
+	{ number: '01', title: 'Fleet deployment', text: 'Release three portable robots in formation and let them drift as Lagrangian flow observers.' },
+	{ number: '02', title: 'Trajectory processing', text: 'Convert synchronized GPS tracks into east-west and north-south velocity observations.' },
+	{ number: '03', title: 'RBF-SVR models', text: 'Train separate radial-basis support-vector regressors for the two flow-velocity components.' },
+	{ number: '04', title: 'Field inference', text: 'Reconstruct the surrounding velocity field and validate it through held-out trajectory prediction.' },
+];
+
+const contributions = [
+	{ title: 'Field mission execution', text: 'Helped deploy and recover a three-robot JaiaBot fleet in the Lafayette River and collect synchronized trajectories under real tidal conditions.' },
+	{ title: 'Data preprocessing', text: 'Converted robot trajectories into velocity components, organized the observations spatially, and prepared the field data for model training and validation in MATLAB.' },
+	{ title: 'Flow-field modeling', text: 'Developed radial-basis support-vector regression models for east-west and north-south current components and evaluated the reconstructed field.' },
+	{ title: 'Trajectory validation', text: 'Used the estimated flow field to propagate a held-out robot trajectory, connecting model error to a physically meaningful field result.' },
+];
+
+const results = [
+	{ value: '0.02 m/s', label: 'Flow-vector RMSE', detail: 'Combined velocity-field error across the two modeled horizontal components.' },
+	{ value: '0.011 / 0.014', label: 'Component RMSE', detail: 'East-west and north-south velocity RMSE values in meters per second during validation.' },
+	{ value: '2.97 m', label: 'Trajectory error', detail: 'Final predicted-position error for a held-out robot, within the stated 3 m GPS accuracy of the field platform.' },
+];
+
+const gallery = [
+	{ src: '/images/jaiabot-deployment.webp', alt: 'Three JaiaBot robots, highlighted with circles, drifting during a Lafayette River field trial.', caption: 'Three JaiaBots collecting synchronized observations as Lagrangian floats.' },
+	{ src: '/images/jaiabot-trajectory.webp', alt: 'Actual and predicted JaiaBot trajectories shown on a satellite map of the river.', caption: 'Held-out actual and predicted trajectories used for physical validation.', fit: 'contain' as const },
+	{ src: '/images/jaiabot-flow-map.webp', alt: 'Estimated Lafayette River velocity field visualized as arrows over a map.', caption: 'Reconstructed river-flow field from the fleet observations and RBF-SVR model.', fit: 'contain' as const },
+];
+---
+
+<ProjectLayout
+	title="JaiaBot Fleet River-Flow Estimation"
+	eyebrow="Project 03 / Multi-robot field sensing"
+	deck="A three-robot field deployment that turns synchronized drift trajectories into a learned river-flow map and validates the estimate through trajectory prediction."
+	heroImage="/images/jaiabot-fleet.webp"
+	heroAlt="Three red JaiaBot aquatic robots arranged inside their transport case before a field deployment."
+	heroCaption="Portable three-robot JaiaBot fleet prepared for Lafayette River deployment."
+	{facts}
+	problem="River-current measurements are often spatially sparse. A fixed sensor can describe one location, while a single moving robot offers limited simultaneous coverage of a flow field that changes across space."
+	approach="We used three portable aquatic robots as Lagrangian floats. Their synchronized GPS trajectories provided distributed flow observations, which I processed into velocity components and modeled with radial-basis support-vector regression before validating the field through held-out trajectory prediction."
+	{workflow}
+	{contributions}
+	{results}
+	{gallery}
+	lessons={[
+		'Real field data contains positioning uncertainty, changing boundaries, tides, and deployment variation that a clean simulation does not expose.',
+		'A small synchronized fleet can trade robot count for useful spatial coverage when the measurement plan and formation are designed together.',
+		'Model accuracy is most useful when translated back into a physical task, such as predicting where a drifting robot will actually travel.',
+	]}
+	publicationHref="https://smartrivers2025.com/wp-content/uploads/SR25_Program_Digital_reduced.pdf"
+	publicationLabel="View SMART Rivers program"
+	nextProject={{ href: '/projects/bluerov-navigation/', label: 'BlueROV navigation & DVL integration' }}
+/>

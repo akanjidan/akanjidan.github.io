@@ -1,0 +1,59 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+const facts = [
+	{ value: '82.7%', label: 'Valid bottom-track measurements' },
+	{ value: '5,108', label: 'Valid measurements retained' },
+	{ value: '6,175', label: 'Measurements evaluated' },
+	{ value: 'Pool', label: 'In-water validation environment' },
+];
+
+const workflow = [
+	{ number: '01', title: 'Nucleus DVL / ADCP', text: 'Measure bottom-relative velocity and altitude while monitoring bottom-lock quality.' },
+	{ number: '02', title: 'BlueOS + ArduSub', text: 'Route external-navigation data into the vehicle stack and configure estimator inputs.' },
+	{ number: '03', title: 'EKF3 navigation', text: 'Fuse motion estimates inside the autopilot while preserving diagnosable logs.' },
+	{ number: '04', title: 'Validation analytics', text: 'Synchronize ArduPilot and Nortek records, reconstruct motion, and inspect failure modes.' },
+];
+
+const contributions = [
+	{ title: 'Physical integration', text: 'Developed the mounting, wiring, networking, and deployment setup needed to operate the Nortek Nucleus and Hydros 21 CTD on a BlueROV Heavy.' },
+	{ title: 'Navigation configuration', text: 'Configured BlueOS and ArduSub for external-navigation inputs and worked through coordinate-frame, estimator, and validity requirements.' },
+	{ title: 'Synchronized data pipeline', text: 'Built Python and PyMAVLink workflows to align vehicle and sensor logs, reject invalid measurements, and reconstruct comparable trajectories.' },
+	{ title: 'Experimental diagnosis', text: 'Used pool trials to connect bottom-lock behavior with altitude, geometry, timing, and estimator response instead of treating each log as an isolated result.' },
+];
+
+const results = [
+	{ value: '82.7%', label: 'Bottom-track validity', detail: '5,108 of 6,175 evaluated measurements passed the validity checks used in the pool analysis.' },
+	{ value: '2 logs', label: 'Synchronized sources', detail: 'ArduPilot and Nortek records were aligned to compare vehicle-state estimates with DVL-derived motion.' },
+	{ value: '1 stack', label: 'End-to-end integration', detail: 'Mechanical mounting, sensor networking, autonomy configuration, analysis, and in-water validation were treated as one system.' },
+];
+
+const gallery = [
+	{ src: '/images/bluerov-platform.webp', alt: 'Top view of Daniel Akanji’s field-configured BlueROV Heavy platform.', caption: 'Field-configured BlueROV Heavy used during marine-robotics integration work.' },
+	{ src: '/images/dvl-adcp-mount-cad.webp', alt: 'CAD rendering of the custom two-arm mounting plate around the DVL and ADCP sensor body.', caption: 'Custom DVL / ADCP mounting plate designed around the sensor body and vehicle attachment points.', fit: 'contain' as const },
+	{ src: '/images/dvl-adcp-mount-underside-cad.webp', alt: 'Underside CAD view of the DVL and ADCP sensor showing its acoustic transducers and mounting arms.', caption: 'Underside CAD view used to check transducer clearance and mounting geometry.', fit: 'contain' as const },
+	{ src: '/images/bluerov-trajectory.webp', alt: 'Trajectory reconstructed from synchronized BlueROV and Nortek navigation data.', caption: 'Trajectory reconstructed from synchronized ArduPilot and Nortek logs.', fit: 'contain' as const },
+];
+---
+
+<ProjectLayout
+	title="BlueROV Navigation & DVL Sensor Integration"
+	eyebrow="Project 01 / Underwater navigation"
+	deck="An end-to-end underwater sensing and navigation project spanning physical integration, BlueOS and ArduSub configuration, synchronized data analysis, and in-water validation."
+	heroImage="/images/bluerov-platform.webp"
+	heroAlt="Top view of Daniel Akanji’s field-configured BlueROV Heavy platform."
+	heroCaption="Field-configured BlueROV Heavy used for sensor-integration and in-water validation work."
+	{facts}
+	problem="Reliable underwater navigation cannot depend on GPS. The practical challenge was to integrate a Nortek Nucleus DVL/ADCP and Hydros 21 CTD into an existing BlueROV Heavy without losing visibility into timing, coordinate frames, bottom lock, or estimator behavior."
+	approach="I treated the vehicle, sensors, autonomy stack, and analysis tools as one experiment. After integrating the hardware and configuring external navigation, I synchronized the independent logs and analyzed the conditions under which the DVL produced valid bottom-relative measurements."
+	{workflow}
+	{contributions}
+	{results}
+	{gallery}
+	lessons={[
+		'Bottom-lock reliability is a system property: vehicle altitude, acoustic geometry, operating environment, and sensor configuration all matter.',
+		'Time alignment and coordinate-frame consistency must be designed into the data pipeline before estimator performance can be judged confidently.',
+		'Autopilot and sensor-native logs answer different questions; keeping both makes integration failures much easier to isolate.',
+	]}
+	nextProject={{ href: '/projects/rov-sampling/', label: 'ROV water & sediment sampling' }}
+/>
